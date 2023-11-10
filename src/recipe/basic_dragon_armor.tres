@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=4 format=3 uid="uid://d0hr7el5u4n2c"]
+
+[ext_resource type="Resource" uid="uid://bd3kx6c3c3kfu" path="res://src/items/dragon_scale.tres" id="1_1n3qn"]
+[ext_resource type="Script" path="res://src/recipe/recipe.gd" id="1_wl7n7"]
+[ext_resource type="Resource" uid="uid://tfy3aa1nracv" path="res://src/items/basic_dragon_armor.tres" id="2_83g2u"]
+
+[resource]
+script = ExtResource("1_wl7n7")
+ingredient = Array[Resource("res://src/obj/item/Item.gd")]([ExtResource("1_1n3qn")])
+result = ExtResource("2_83g2u")

@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://bh53np8b5m78r"]
+
+[ext_resource type="PackedScene" uid="uid://ye8mtwmi44mn" path="res://src/scene/StatsInteractable.tscn" id="1_j0e4k"]
+[ext_resource type="Script" path="res://src/statEvent.gd" id="2_6fdh4"]
+[ext_resource type="Texture2D" uid="uid://dv456jem0ux3r" path="res://assets/img/bed.png" id="3_omjvw"]
+[ext_resource type="JSON" path="res://src/dialog/bedEvent.json" id="4_18xax"]
+
+[sub_resource type="Resource" id="Resource_na7q4"]
+script = ExtResource("2_6fdh4")
+healthAmount = 5
+moneyAmount = 0
+happinessAmount = 5
+energyAmount = 20
+requiredTime = 0.0
+
+[node name="BedInteraction" instance=ExtResource("1_j0e4k")]
+statEvent = SubResource("Resource_na7q4")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(8, 16)
+texture = ExtResource("3_omjvw")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(8, 16)
+scale = Vector2(1, 2)
+
+[node name="InteractedComponent" parent="." index="2"]
+position = Vector2(8, 16)
+scale = Vector2(1, 2)
+event = ExtResource("4_18xax")

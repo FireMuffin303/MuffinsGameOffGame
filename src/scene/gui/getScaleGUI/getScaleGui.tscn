@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg2t22m6rorqc"]
+
+[ext_resource type="Script" path="res://src/scene/gui/getScaleGUI/getScaleGui.gd" id="1_eniph"]
+
+[node name="getScaleGui" type="CanvasLayer"]
+script = ExtResource("1_eniph")
+
+[node name="VScrollBar" type="VScrollBar" parent="."]
+offset_left = 335.0
+offset_top = 44.0
+offset_right = 363.0
+offset_bottom = 304.0
+scale = Vector2(0.640003, 0.521739)
+max_value = 1.0
+step = 0.1

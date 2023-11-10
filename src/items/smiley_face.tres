@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bx0pdyss826p6"]
+
+[ext_resource type="Texture2D" uid="uid://jm4duerkkwqu" path="res://assets/img/happinessicon.png" id="1_0ugqy"]
+[ext_resource type="Script" path="res://src/obj/item/Item.gd" id="1_lmlfm"]
+
+[resource]
+script = ExtResource("1_lmlfm")
+item_name = "SmileyFace"
+item_id = "smiley_face"
+item_icon = ExtResource("1_0ugqy")
+item_description = ""

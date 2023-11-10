@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1xpy6sfpk4yo"]
+
+[ext_resource type="PackedScene" uid="uid://c10usgh1xt10q" path="res://src/obj/Player.tscn" id="1_somw0"]
+[ext_resource type="PackedScene" uid="uid://byqsrcka44qb5" path="res://src/obj/npc/npc.tscn" id="2_w6ar0"]
+[ext_resource type="Resource" uid="uid://bd3kx6c3c3kfu" path="res://src/items/dragon_scale.tres" id="3_fk0cn"]
+[ext_resource type="PackedScene" uid="uid://cjpy4boefe1vw" path="res://src/obj/dialogNpc/DialogNPC.tscn" id="4_bfhny"]
+[ext_resource type="Script" path="res://src/component/ItemComponent.gd" id="4_jwg4j"]
+[ext_resource type="PackedScene" uid="uid://5oeetma18tcj" path="res://src/obj/Dragon/PrototypeDragon.tscn" id="6_m8k7s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3wtlq"]
+radius = 79.2641
+
+[node name="room_test" type="Node2D"]
+y_sort_enabled = true
+
+[node name="DialogNPC" parent="." instance=ExtResource("4_bfhny")]
+position = Vector2(497, 341)
+
+[node name="DialogComponent" parent="DialogNPC" index="2"]
+dialogs = Array[String](["Hey", "Muhahaha", "Gay"])
+
+[node name="NPC" parent="." instance=ExtResource("2_w6ar0")]
+position = Vector2(297, 232)
+
+[node name="ItemComponent" type="Area2D" parent="NPC"]
+script = ExtResource("4_jwg4j")
+item = ExtResource("3_fk0cn")
+one_time = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC/ItemComponent"]
+position = Vector2(40.6349, 2.03149)
+shape = SubResource("CircleShape2D_3wtlq")
+
+[node name="Player" parent="." instance=ExtResource("1_somw0")]
+position = Vector2(117, 122)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position_smoothing_speed = 8.0
+
+[node name="PrototypeDragon" parent="." instance=ExtResource("6_m8k7s")]
+position = Vector2(0, 318)
+
+[editable path="DialogNPC"]

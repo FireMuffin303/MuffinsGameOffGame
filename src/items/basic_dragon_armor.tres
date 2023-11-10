@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://tfy3aa1nracv"]
+
+[ext_resource type="Texture2D" uid="uid://ugqss44wbouc" path="res://assets/img/player.png" id="1_a6plv"]
+[ext_resource type="Script" path="res://src/obj/item/Item.gd" id="1_t4vhn"]
+
+[resource]
+script = ExtResource("1_t4vhn")
+item_name = "Basic Dragon Armor"
+item_id = "basic_dragon_armor"
+item_icon = ExtResource("1_a6plv")
+item_description = ""

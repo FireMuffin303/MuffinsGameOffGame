@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bd3kx6c3c3kfu"]
+
+[ext_resource type="Texture2D" uid="uid://b6d71lc62nggu" path="res://assets/img/scale.png" id="1_88l0w"]
+[ext_resource type="Script" path="res://src/obj/item/Item.gd" id="1_wfx00"]
+
+[resource]
+script = ExtResource("1_wfx00")
+item_name = "Dragon Scale"
+item_id = "dragon_scale"
+item_icon = ExtResource("1_88l0w")
+item_description = "A dragon scale"

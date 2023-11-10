@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjpy4boefe1vw"]
+
+[ext_resource type="Texture2D" uid="uid://b0sva4yycbnje" path="res://icon.svg" id="1_ydie6"]
+[ext_resource type="Script" path="res://src/component/DialogComponent.gd" id="2_uegpe"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5mr7k"]
+radius = 24.0
+height = 128.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ju8kk"]
+radius = 104.0
+
+[node name="DialogNPC" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ydie6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 40)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_5mr7k")
+
+[node name="DialogComponent" type="Area2D" parent="."]
+script = ExtResource("2_uegpe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogComponent"]
+shape = SubResource("CircleShape2D_ju8kk")

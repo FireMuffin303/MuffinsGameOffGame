@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcjswy5or67t0"]
+
+[ext_resource type="Texture2D" uid="uid://ba4glul84u4wj" path="res://assets/img/dialogbox.png" id="1_2cn46"]
+[ext_resource type="Script" path="res://src/scene/gui/dialog/dialogGUI.gd" id="1_l7cio"]
+
+[node name="dialogGUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l7cio")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(438, 400.5)
+scale = Vector2(4.29167, 2.64583)
+texture = ExtResource("1_2cn46")
+
+[node name="value" type="RichTextLabel" parent="."]
+offset_left = 122.0
+offset_top = 357.0
+offset_right = 756.0
+offset_bottom = 448.0
+text = "$dialog"

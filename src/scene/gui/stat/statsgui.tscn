@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://ebmkspyvau5k"]
+
+[ext_resource type="Script" path="res://src/scene/gui/stat/statsgui.gd" id="1_fgivs"]
+
+[node name="statsgui" type="CanvasLayer"]
+script = ExtResource("1_fgivs")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 189.0
+offset_bottom = 55.0
+
+[node name="RepuationLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Reputation : "
+
+[node name="Value" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "$amount"

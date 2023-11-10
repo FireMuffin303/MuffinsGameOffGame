@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://c10usgh1xt10q"]
+
+[ext_resource type="Script" path="res://src/obj/Player.gd" id="1_6vh6x"]
+[ext_resource type="Texture2D" uid="uid://cakpn3js4vic1" path="res://assets/img/human.png" id="2_uhho4"]
+[ext_resource type="Script" path="res://src/component/InventoryComponent.gd" id="3_qbcx7"]
+[ext_resource type="PackedScene" uid="uid://d1x0t1aj0flij" path="res://src/scene/gui/inventory/InventoryScreen.tscn" id="4_cj1go"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7icam"]
+atlas = ExtResource("2_uhho4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hkpym"]
+atlas = ExtResource("2_uhho4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmvd7"]
+atlas = ExtResource("2_uhho4")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ko171"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7icam")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hkpym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vmvd7")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0niq4"]
+radius = 4.0
+height = 16.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_6vh6x")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ko171")
+animation = &"idle"
+frame_progress = 0.157605
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11)
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_0niq4")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, 11)
+target_position = Vector2(0, 40)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="InventoryComponent" type="Node" parent="."]
+script = ExtResource("3_qbcx7")
+
+[node name="InventoryScreen" parent="." instance=ExtResource("4_cj1go")]
+visible = false
+
+[connection signal="update_inventory" from="InventoryComponent" to="InventoryScreen" method="_on_update_inventory"]
