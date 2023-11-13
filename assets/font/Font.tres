@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b6781dwa5qk3g"]
+
+[ext_resource type="FontFile" uid="uid://cfhum2y7sxsu4" path="res://assets/font/life_space_blance.ttf" id="1_qjf21"]
+
+[resource]
+default_font = ExtResource("1_qjf21")
+default_font_size = 8
