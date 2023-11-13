@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c10usgh1xt10q"]
+[gd_scene load_steps=11 format=3 uid="uid://c10usgh1xt10q"]
 
 [ext_resource type="Script" path="res://src/obj/Player.gd" id="1_6vh6x"]
 [ext_resource type="Texture2D" uid="uid://cakpn3js4vic1" path="res://assets/img/human.png" id="2_uhho4"]
 [ext_resource type="Script" path="res://src/component/InventoryComponent.gd" id="3_qbcx7"]
 [ext_resource type="PackedScene" uid="uid://d1x0t1aj0flij" path="res://src/scene/gui/inventory/InventoryScreen.tscn" id="4_cj1go"]
+[ext_resource type="Script" path="res://src/component/HealthComponent.gd" id="5_f3ntn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7icam"]
 atlas = ExtResource("2_uhho4")
@@ -68,5 +69,8 @@ script = ExtResource("3_qbcx7")
 
 [node name="InventoryScreen" parent="." instance=ExtResource("4_cj1go")]
 visible = false
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("5_f3ntn")
 
 [connection signal="update_inventory" from="InventoryComponent" to="InventoryScreen" method="_on_update_inventory"]

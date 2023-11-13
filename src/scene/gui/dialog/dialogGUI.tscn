@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcjswy5or67t0"]
+[gd_scene load_steps=4 format=3 uid="uid://dcjswy5or67t0"]
 
 [ext_resource type="Texture2D" uid="uid://ba4glul84u4wj" path="res://assets/img/dialogbox.png" id="1_2cn46"]
 [ext_resource type="Script" path="res://src/scene/gui/dialog/dialogGUI.gd" id="1_l7cio"]
+[ext_resource type="Theme" path="res://assets/font/Font.tres" id="3_r55w8"]
 
 [node name="dialogGUI" type="CanvasLayer"]
 script = ExtResource("1_l7cio")
@@ -16,4 +17,5 @@ offset_left = 50.0
 offset_top = 184.0
 offset_right = 369.0
 offset_bottom = 212.0
+theme = ExtResource("3_r55w8")
 text = "$dialog"

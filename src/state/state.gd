@@ -1,14 +1,18 @@
 class_name State
 extends Node
 
-func _enter_state() -> void:
+signal on_change_state(state:State)
+
+@export var next_state:State
+
+func enter_state() -> void:
 	pass
 	
-func _exit_state() -> void:
+func exit_state() -> void:
 	pass
 
-func update() -> void:
+func update(delta:float) -> void:
 	pass
 	
-func physics_update(delta) -> void:
+func physics_update(delta:float) -> void:
 	pass

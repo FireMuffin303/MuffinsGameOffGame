@@ -1,9 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://5oeetma18tcj"]
+[gd_scene load_steps=22 format=3 uid="uid://5oeetma18tcj"]
 
 [ext_resource type="Script" path="res://src/obj/Dragon/PrototypeDragon.gd" id="1_hwmbn"]
 [ext_resource type="Texture2D" uid="uid://doqtvxxby1vgd" path="res://assets/img/prototype_dragon.png" id="1_osg7b"]
 [ext_resource type="Script" path="res://src/component/GetScaleComponent.gd" id="2_b8gb3"]
 [ext_resource type="Resource" uid="uid://bd3kx6c3c3kfu" path="res://src/items/dragon_scale.tres" id="3_qlf5h"]
+[ext_resource type="Script" path="res://src/state/StateMachine.gd" id="5_uoyfa"]
+[ext_resource type="Script" path="res://src/state/LookAroundState.gd" id="6_245jg"]
+[ext_resource type="Script" path="res://src/state/StayStillState.gd" id="7_abq4q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cjwxs"]
 atlas = ExtResource("1_osg7b")
@@ -108,7 +111,7 @@ radius = 13.0
 height = 106.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qxmch"]
-size = Vector2(94, 36)
+size = Vector2(112, 30)
 
 [node name="PrototypeDragon" type="CharacterBody2D"]
 script = ExtResource("1_hwmbn")
@@ -129,7 +132,30 @@ script = ExtResource("2_b8gb3")
 item = ExtResource("3_qlf5h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GetScaleComponent"]
-position = Vector2(0, 10)
+position = Vector2(0, 18)
 shape = SubResource("RectangleShape2D_qxmch")
 
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("5_uoyfa")
+initial_state = NodePath("DragonIdleState")
+
+[node name="LookAroundState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("timer", "raycast")]
+script = ExtResource("6_245jg")
+timer = NodePath("Timer")
+raycast = NodePath("../../RayCast2D")
+
+[node name="Timer" type="Timer" parent="FiniteStateMachine/LookAroundState"]
+wait_time = 2.0
+
+[node name="DragonIdleState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("next_state")]
+script = ExtResource("7_abq4q")
+next_state = NodePath("../LookAroundState")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-20, -18)
+target_position = Vector2(128, 0)
+
 [connection signal="out_of_chance" from="GetScaleComponent" to="." method="_on_get_scale_component_out_of_chance"]
+[connection signal="out_of_chance" from="GetScaleComponent" to="FiniteStateMachine/DragonIdleState" method="_on_out_of_chance"]
+[connection signal="player_alert" from="FiniteStateMachine/LookAroundState" to="FiniteStateMachine/LookAroundState" method="alert_player"]
+[connection signal="on_change_state" from="FiniteStateMachine/DragonIdleState" to="FiniteStateMachine" method="on_change_state"]
