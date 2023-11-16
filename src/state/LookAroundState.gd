@@ -15,10 +15,9 @@ func physics_update(delta:float) -> void:
 	if(raycast.get_collider() is Player):
 		self.target = raycast.get_collider()
 		self.player_alert.emit(self.target)
-		
+		self.on_change_state.emit(self.next_state)
+
 
 func change_side() -> void:
 	right_side = !right_side
 
-func alert_player(player:Player):
-	print("alert there's a player")

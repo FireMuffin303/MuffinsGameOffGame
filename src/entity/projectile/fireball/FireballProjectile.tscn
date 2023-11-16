@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://dkc45q4c302m"]
+
+[ext_resource type="Texture2D" uid="uid://cowp3nr5htwr4" path="res://assets/img/projectile/muffin.png" id="1_e2fl8"]
+[ext_resource type="Script" path="res://src/entity/projectile/fireball/Projectile.gd" id="1_yv6oh"]
+[ext_resource type="Script" path="res://src/component/DamageComponent.gd" id="2_jafif"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_21yag"]
+radius = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5nmcl"]
+radius = 12.0416
+
+[node name="FireballProjectile" type="CharacterBody2D" node_paths=PackedStringArray("timer")]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_yv6oh")
+timer = NodePath("Timer")
+speed = 40
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_e2fl8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_21yag")
+
+[node name="DamageComponent" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("2_jafif")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageComponent"]
+shape = SubResource("CircleShape2D_5nmcl")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_lifetime_timeout"]

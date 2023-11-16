@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ba4glul84u4wj" path="res://assets/img/dialogbox.png" id="1_2cn46"]
 [ext_resource type="Script" path="res://src/scene/gui/dialog/dialogGUI.gd" id="1_l7cio"]
-[ext_resource type="Theme" path="res://assets/font/Font.tres" id="3_r55w8"]
+[ext_resource type="Theme" uid="uid://b6781dwa5qk3g" path="res://assets/font/Font.tres" id="3_r55w8"]
 
 [node name="dialogGUI" type="CanvasLayer"]
 script = ExtResource("1_l7cio")

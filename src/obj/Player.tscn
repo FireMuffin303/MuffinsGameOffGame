@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://c10usgh1xt10q"]
+[gd_scene load_steps=13 format=3 uid="uid://c10usgh1xt10q"]
 
 [ext_resource type="Script" path="res://src/obj/Player.gd" id="1_6vh6x"]
 [ext_resource type="Texture2D" uid="uid://cakpn3js4vic1" path="res://assets/img/human.png" id="2_uhho4"]
 [ext_resource type="Script" path="res://src/component/InventoryComponent.gd" id="3_qbcx7"]
 [ext_resource type="PackedScene" uid="uid://d1x0t1aj0flij" path="res://src/scene/gui/inventory/InventoryScreen.tscn" id="4_cj1go"]
 [ext_resource type="Script" path="res://src/component/HealthComponent.gd" id="5_f3ntn"]
+[ext_resource type="Script" path="res://src/component/HurtBox.gd" id="6_5bq7h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7icam"]
 atlas = ExtResource("2_uhho4")
@@ -44,21 +45,23 @@ animations = [{
 radius = 4.0
 height = 16.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vu7fa"]
+radius = 6.0
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_6vh6x")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -11)
 sprite_frames = SubResource("SpriteFrames_ko171")
 animation = &"idle"
 frame_progress = 0.157605
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 11)
 rotation = -1.5708
 shape = SubResource("CapsuleShape2D_0niq4")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(0, 11)
 target_position = Vector2(0, 40)
 collision_mask = 2
 collide_with_areas = true
@@ -73,4 +76,15 @@ visible = false
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("5_f3ntn")
 
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("healthComponent")]
+position = Vector2(0, -11)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("6_5bq7h")
+healthComponent = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CapsuleShape2D_vu7fa")
+
 [connection signal="update_inventory" from="InventoryComponent" to="InventoryScreen" method="_on_update_inventory"]
+[connection signal="area_entered" from="HurtBox" to="HurtBox" method="_on_area_entered"]

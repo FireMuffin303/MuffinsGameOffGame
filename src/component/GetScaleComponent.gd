@@ -6,9 +6,13 @@ signal out_of_chance()
 var number
 var random = RandomNumberGenerator.new()
 
+@export var state_machine : FiniteStateMachine
+
 var chance : int = 3
 
 func interacting(player:Player):
+	if(!state_machine.current_state is DragonIdleState) : return
+	
 	if(player._get_player_state() == player.PlayerStates.TASKING):
 		var inputScale = GetScaleGUI._get_value()
 		if(inputScale <= number+0.1 and inputScale >= number-0.1):

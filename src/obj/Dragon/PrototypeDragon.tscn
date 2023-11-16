@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://5oeetma18tcj"]
+[gd_scene load_steps=24 format=3 uid="uid://5oeetma18tcj"]
 
 [ext_resource type="Script" path="res://src/obj/Dragon/PrototypeDragon.gd" id="1_hwmbn"]
 [ext_resource type="Texture2D" uid="uid://doqtvxxby1vgd" path="res://assets/img/prototype_dragon.png" id="1_osg7b"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://src/state/StateMachine.gd" id="5_uoyfa"]
 [ext_resource type="Script" path="res://src/state/LookAroundState.gd" id="6_245jg"]
 [ext_resource type="Script" path="res://src/state/StayStillState.gd" id="7_abq4q"]
+[ext_resource type="Script" path="res://src/state/ShootProjectileState.gd" id="8_76iwv"]
+[ext_resource type="PackedScene" uid="uid://dkc45q4c302m" path="res://src/entity/projectile/fireball/FireballProjectile.tscn" id="9_7y1fj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cjwxs"]
 atlas = ExtResource("1_osg7b")
@@ -125,10 +127,11 @@ position = Vector2(0, 17)
 rotation = -1.5708
 shape = SubResource("CapsuleShape2D_chuky")
 
-[node name="GetScaleComponent" type="Area2D" parent="."]
+[node name="GetScaleComponent" type="Area2D" parent="." node_paths=PackedStringArray("state_machine")]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("2_b8gb3")
+state_machine = NodePath("../FiniteStateMachine")
 item = ExtResource("3_qlf5h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GetScaleComponent"]
@@ -139,10 +142,11 @@ shape = SubResource("RectangleShape2D_qxmch")
 script = ExtResource("5_uoyfa")
 initial_state = NodePath("DragonIdleState")
 
-[node name="LookAroundState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("timer", "raycast")]
+[node name="LookAroundState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("timer", "raycast", "next_state")]
 script = ExtResource("6_245jg")
 timer = NodePath("Timer")
 raycast = NodePath("../../RayCast2D")
+next_state = NodePath("../ShootProjectileState")
 
 [node name="Timer" type="Timer" parent="FiniteStateMachine/LookAroundState"]
 wait_time = 2.0
@@ -151,11 +155,21 @@ wait_time = 2.0
 script = ExtResource("7_abq4q")
 next_state = NodePath("../LookAroundState")
 
+[node name="ShootProjectileState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("timer", "raycast")]
+script = ExtResource("8_76iwv")
+timer = NodePath("Timer")
+projectile = ExtResource("9_7y1fj")
+raycast = NodePath("../../RayCast2D")
+
+[node name="Timer" type="Timer" parent="FiniteStateMachine/ShootProjectileState"]
+
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(-20, -18)
 target_position = Vector2(128, 0)
 
 [connection signal="out_of_chance" from="GetScaleComponent" to="." method="_on_get_scale_component_out_of_chance"]
 [connection signal="out_of_chance" from="GetScaleComponent" to="FiniteStateMachine/DragonIdleState" method="_on_out_of_chance"]
-[connection signal="player_alert" from="FiniteStateMachine/LookAroundState" to="FiniteStateMachine/LookAroundState" method="alert_player"]
+[connection signal="on_change_state" from="FiniteStateMachine/LookAroundState" to="FiniteStateMachine" method="on_change_state"]
+[connection signal="player_alert" from="FiniteStateMachine/LookAroundState" to="FiniteStateMachine/ShootProjectileState" method="set_target"]
 [connection signal="on_change_state" from="FiniteStateMachine/DragonIdleState" to="FiniteStateMachine" method="on_change_state"]
+[connection signal="timeout" from="FiniteStateMachine/ShootProjectileState/Timer" to="FiniteStateMachine/ShootProjectileState" method="_on_timer_out"]
